@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import Button from "../components/Button";
 import Text from "../components/Text";
@@ -8,6 +9,14 @@ import axios from "../api/axios";
 const Home = () => {
   const navigate = useNavigate();
   const [products, setProducts] = React.useState<IProduct[]>([]);
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  const images = [
+    "https://res.cloudinary.com/dbspz5tmg/image/upload/v1679834660/youtube/2023/march/komorebi-development/young-person-wearing-hoodie-mockup_2_1_jnlzke.png",
+    "https://res.cloudinary.com/dbspz5tmg/image/upload/v1679743572/youtube/2023/march/komorebi-development/primaryimage_oblfj9.png",
+    "https://res.cloudinary.com/dbspz5tmg/image/upload/v1679743570/youtube/2023/march/komorebi-development/young-person-wearing-hoodie-mockup_1_2_exnour.png",
+    "https://specials-images.forbesimg.com/imageserve/63482328920b9ff5cede06a9/Forbes-Best-Men-s-Hoodies/960x0.jpg?fit=scale",
+  ];
 
   const navigateToShop = () => {
     navigate("/shop");
@@ -23,8 +32,26 @@ const Home = () => {
     }
   };
 
+  const nextSlide = () => {
+    setCurrentSlide((currentSlide + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prevSlide) => (prevSlide - 1 + images.length) % images.length
+    );
+  };
+
   React.useEffect(() => {
     getProducts();
+  }, []);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -68,7 +95,7 @@ const Home = () => {
         })}
       </div>
 
-      <div className="mt-[180px] mx-[50px] max-w-3xl">
+      <div className="mt-[100px] mx-[50px] max-w-3xl">
         <Text variant="heading-one">KOMO hoodies</Text>
         <Text variant="body-two" className="mt-7">
           Our hoodies are crafted from high-quality materials and are designed
@@ -80,17 +107,67 @@ const Home = () => {
         </Text>
       </div>
 
-      <div className="mt-[82px] mb-[180px] relative">
-        <img
-          className="h-[768px] aspect-[1.6] w-full object-cover"
-          src="https://res.cloudinary.com/dbspz5tmg/image/upload/v1679834660/youtube/2023/march/komorebi-development/young-person-wearing-hoodie-mockup_2_1_jnlzke.png"
-          alt="learn-more-image"
-        />
+      <div className="mt-[82px] mb-[100px] relative h-[768px]">
+        {images.map((image, index) => (
+          <div>
+            <img
+              key={index}
+              className={`absolute w-full h-full transition-opacity duration-500 ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+              src={image}
+              alt={`Slide ${index}`}
+            />
+            <button
+              className="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-zinc-950 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:opacity-90 motion-reduce:transition-none"
+              onClick={prevSlide}
+            >
+              <span className="inline-block h-8 w-8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <button
+              className="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-zinc-950 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:opacity-90 motion-reduce:transition-none"
+              onClick={nextSlide}
+            >
+              <span className="inline-block h-8 w-8">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        ))}
         <Button className="absolute bottom-20 left-[30%] sm:left-[40%] md:left-[45%]">
-            <span className="flex">
-                <Icon name="arrow-small-right"/>
-                <span className="ml-[10px]">LEARN MORE</span>
-            </span>
+          <span className="flex">
+            <Icon name="arrow-small-right" />
+            <span className="ml-[10px]">LEARN MORE</span>
+          </span>
         </Button>
       </div>
     </section>
