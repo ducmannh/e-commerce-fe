@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import useGlobalStore from "../store/useGlobalStore";
 import { getCartTotal } from "../helpers";
 import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   name: string;
@@ -27,11 +28,11 @@ interface OrderDetailsType {
 }
 
 const ShippingAddress = () => {
-  const { cart } = useGlobalStore();
+  const navigate = useNavigate();
+  const { cart, updateClientSecret } = useGlobalStore();
   const cartTotal = getCartTotal(cart);
   const {
     register,
-    setValue,
     handleSubmit,
     getValues,
     formState: { errors },
@@ -53,7 +54,8 @@ const ShippingAddress = () => {
       };
 
       const res = await axios.post("/orders", { ...orderDetails });
-      console.log(res.data)
+      updateClientSecret(res.data.clientSecret);
+      navigate("/checkout/payment");
     } catch (error) {
       console.log("error", error);
     }
