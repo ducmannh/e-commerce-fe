@@ -6,10 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers } from "../redux/storeSlice";
+import { listUsers, nameUser } from "../../redux/storeSlice";
 import { toast, Toaster } from "react-hot-toast";
-import Button from "../components/Button";
-import Text from "../components/Text";
+import Button from "../../components/Button";
+import Text from "../../components/Text";
 import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup
@@ -39,7 +39,11 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
   const user = useSelector((value: any) => value.store.user);
 
+  const name = useSelector((value: any) => value.store.dataName)
+  console.log(name)
+
   const onSubmit = (data: FormData) => {
+    dispatch(nameUser(data.name))
     const existingUser = user.find(
       (userItem: any) =>
         userItem.name === data.name && userItem.password === data.password

@@ -6,10 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers } from "../redux/storeSlice";
+import { listUsers } from "../../redux/storeSlice";
 import { toast, Toaster } from "react-hot-toast";
-import Button from "../components/Button";
-import Text from "../components/Text";
+import Button from "../../components/Button";
+import Text from "../../components/Text";
 import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup

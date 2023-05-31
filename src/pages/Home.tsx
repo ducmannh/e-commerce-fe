@@ -70,7 +70,7 @@ const Home = () => {
         </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[38px] mt-[75px] mx-auto sm:mx-4 md:mx-8 lg:mx-12 2xl:mt-[300px]">
-        {products.map((productItem) => {
+        {products.slice(0, 3).map((productItem) => {
           return (
             <div
               key={productItem._id}
