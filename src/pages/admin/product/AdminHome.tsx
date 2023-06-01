@@ -16,20 +16,25 @@ import { Toaster, toast } from "react-hot-toast";
 const AdminHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const [id, setId] = React.useState("");
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [id, setId] = React.useState<string>("");
+  const [nameUser, setNameUser] = React.useState<string | null>("")
   const products = useSelector((value: any) => value.store.products);
-
-  const user = useSelector((value: any) => value.store.user);
-  console.log(user);
-
   const name = useSelector((value: any) => value.store.dataName)
-  console.log(name)
+
+  React.useEffect(() => {
+    if(name) {
+      localStorage.setItem("name", (name))
+    }
+    setNameUser(localStorage.getItem("name"));
+  }, [name])
 
   React.useEffect(() => {
     axios
       .get("http://localhost:2304/users")
-      .then((res) => dispatch(listUsers(res.data)));
+      .then((res) => {
+        dispatch(listUsers(res.data))
+      });
   }, []);
 
   const getProduct = () => {
@@ -76,7 +81,7 @@ const AdminHome = () => {
       <Toaster />
 
       <div className="text-2xl mx-10 flex items-center my-6">
-        <p className="mr-4">Welcome back, {name} </p>
+        <p className="mr-4">Welcome back, {nameUser}</p>
         <div
           className="underline decoration-blue-800 text-blue-800 mr-5 cursor-pointer"
           onClick={() => navigate("/admin-login")}

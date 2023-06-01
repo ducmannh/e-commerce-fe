@@ -8,12 +8,15 @@ import { listOrders } from "../../../redux/storeSlice";
 import { format } from "date-fns";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AdminHomeOrder = () => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
-  const [id, setId] = React.useState("");
+  const navigate = useNavigate()
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [id, setId] = React.useState<string>("");
   const order = useSelector((value: any) => value.store.order);
+  const name = localStorage.getItem("name")
 
   const handleSearch = (searchInput: string) => {
     console.log(searchInput);
@@ -42,6 +45,16 @@ const AdminHomeOrder = () => {
     <div>
       <AdminHeader handleSearch={handleSearch} />
       <Toaster />
+
+      <div className="text-2xl mx-10 flex items-center my-6">
+        <p className="mr-4">Welcome back, {name}</p>
+        <div
+          className="underline decoration-blue-800 text-blue-800 mr-5 cursor-pointer"
+          onClick={() => navigate("/admin-login")}
+        >
+          Logout
+        </div>
+      </div>
 
       {open && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">

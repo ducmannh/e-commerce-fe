@@ -121,7 +121,7 @@ const AdminCreateProduct = () => {
                 Add product
               </Button>
               <Button type="button" size="small" className="w-1/3">
-                <a href={"/admin"}>Back</a>
+                <a href={"/admin-products"}>Back</a>
               </Button>
             </div>
           </div>

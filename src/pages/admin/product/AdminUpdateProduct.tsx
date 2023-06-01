@@ -26,7 +26,7 @@ const AdminUpdateProduct = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     axios.put(`http://localhost:2304/products/${id}`, data).then((res) => {
       dispatch(listProducts(res.data));
-      navigate("/admin");
+      navigate("/admin-products");
     });
   };
 
@@ -126,7 +126,7 @@ const AdminUpdateProduct = () => {
                 Update product
               </Button>
               <Button type="button" size="small" className="w-1/3">
-                <Link to={"/admin"}>Back</Link>
+                <Link to={"/admin-products"}>Back</Link>
               </Button>
             </div>
           </div>

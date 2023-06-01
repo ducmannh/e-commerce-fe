@@ -39,9 +39,6 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
   const user = useSelector((value: any) => value.store.user);
 
-  const name = useSelector((value: any) => value.store.dataName)
-  console.log(name)
-
   const onSubmit = (data: FormData) => {
     dispatch(nameUser(data.name))
     const existingUser = user.find(
@@ -51,7 +48,7 @@ const AdminLogin = () => {
 
     if (existingUser) {
       toast.success("Login successful");
-      navigate("/admin");
+      navigate("/admin-products");
     } else {
       toast.error("User Name or Password incorrect");
     }
@@ -70,7 +67,7 @@ const AdminLogin = () => {
     >
       <div className="border-2 border-zinc-950 rounded-lg p-8">
         <Text variant="body-one" className="mb-14 text-center">
-          REGISTER
+          LOGIN
         </Text>
         <div className="flex items-center mb-2">
           <label htmlFor="name" className="w-64 text-lg text-gray-900">
