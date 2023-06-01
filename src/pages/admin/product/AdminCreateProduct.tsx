@@ -1,49 +1,44 @@
-import { Toaster } from "react-hot-toast";
-import Button from "../../components/Button";
-import Text from "../../components/Text";
-import { useDispatch } from "react-redux";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SubmitHandler, useForm } from "react-hook-form";
-import React from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import Button from "../../../components/Button";
+import Text from "../../../components/Text";
 import axios from "axios";
-import { format } from "date-fns";
-import { listProducts } from "../../redux/storeSlice";
+import { useDispatch } from "react-redux";
+import { listProducts } from "../../../redux/storeSlice";
+import { toast, Toaster } from "react-hot-toast";
 
 interface Inputs {
   image: string;
   name: string;
   description: string;
   price: number;
-  createdAt: string;
+  createdAt: Date;
 }
 
-const AdminUpdateProduct = () => {
-  const { register, handleSubmit, setValue } = useForm<Inputs>();
+const AdminCreateProduct = () => {
+  const { register, handleSubmit, reset } = useForm<Inputs>();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    axios.put(`http://localhost:2304/products/${id}`, data).then((res) => {
-      dispatch(listProducts(res.data));
-      navigate("/admin");
-    });
+    try {
+      if (
+        data.image &&
+        data.name &&
+        data.description &&
+        data.price &&
+        data.createdAt
+      ) {
+        const res = await axios.post("http://localhost:2304/products", data);
+        dispatch(listProducts(res.data));
+        toast.success("Added products success");
+        reset();
+      } else {
+        toast.error("Please enter enough information");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  React.useEffect(() => {
-    axios
-      .get(`http://localhost:2304/products/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        const { image, name, description, price, createdAt } = res.data;
-        setValue("image", image);
-        setValue("name", name);
-        setValue("description", description);
-        setValue("price", price);
-        setValue("createdAt", format(new Date(createdAt), "yyyy-MM-dd"));
-      })
-      .catch((error) => console.log("error", error));
-  }, [setValue, id]);
 
   return (
     <div>
@@ -52,7 +47,7 @@ const AdminUpdateProduct = () => {
           <div className="bg-zinc-50 w-1/2 rounded-lg shadow-2xl">
             <div className="p-8">
               <Text variant="body-one" className="text-center mb-7">
-                UPDATE PRODUCT
+                ADD PRODUCT
               </Text>
               <div className="flex items-center mb-7">
                 <label htmlFor="image" className="w-48 text-lg text-gray-900">
@@ -123,10 +118,10 @@ const AdminUpdateProduct = () => {
             </div>
             <div className="flex justify-between p-4">
               <Button type="submit" size="small" className="w-1/3">
-                Update product
+                Add product
               </Button>
               <Button type="button" size="small" className="w-1/3">
-                <Link to={"/admin"}>Back</Link>
+                <a href={"/admin"}>Back</a>
               </Button>
             </div>
           </div>
@@ -137,4 +132,4 @@ const AdminUpdateProduct = () => {
   );
 };
 
-export default AdminUpdateProduct;
+export default AdminCreateProduct;

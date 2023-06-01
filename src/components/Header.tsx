@@ -18,7 +18,7 @@ const Header = () => {
         <Link to={"/shop"}>
           <Text variant="caption-one">Shop</Text>
         </Link>
-        <Link to={""}>
+        <Link to={"/admin-login"}>
           <Text variant="caption-one">About</Text>
         </Link>
         <Link to={"/cart"} className="relative">

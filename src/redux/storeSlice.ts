@@ -4,6 +4,7 @@ const initialState = {
   user: [],
   products: [],
   dataName: "",
+  order: [],
 };
 
 export const storeSlice = createSlice({
@@ -19,9 +20,12 @@ export const storeSlice = createSlice({
     nameUser: (state, action) => {
       state.dataName = action.payload;
     },
+    listOrders: (state, action) => {
+      state.order = action.payload;
+    }
   },
 });
 
-export const { listUsers, listProducts, nameUser } = storeSlice.actions;
+export const { listUsers, listProducts, nameUser, listOrders } = storeSlice.actions;
 
 export default storeSlice.reducer;

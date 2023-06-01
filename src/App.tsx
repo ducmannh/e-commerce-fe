@@ -11,9 +11,10 @@ import Payment from "./pages/Payment";
 import Success from "./pages/Success";
 import AdminRegister from "./pages/admin/AdminRegister";
 import AdminLogin from "./pages/admin/AdminLogin";
-import AdminHome from "./pages/admin/AdminHome";
-import AdminCreateProduct from "./pages/admin/AdminCreateProduct";
-import AdminUpdateProduct from "./pages/admin/AdminUpdateProduct";
+import AdminHome from "./pages/admin/product/AdminHome";
+import AdminCreateProduct from "./pages/admin/product/AdminCreateProduct";
+import AdminUpdateProduct from "./pages/admin/product/AdminUpdateProduct";
+import AdminHomeOrder from "./pages/admin/order/AdminHomeOrder";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
     element: <AdminLogin />,
   },
   {
-    path: "/admin",
+    path: "/admin-products",
     element: <AdminHome />,
   },
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/update-product/:id",
     element: <AdminUpdateProduct />,
+  },
+  {
+    path: "/admin-orders",
+    element: <AdminHomeOrder />,
   },
 ]);
 

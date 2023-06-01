@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Logo from "../../components/icons/Logo";
 
 interface AdminHeaderProps {
   handleSearch: (searchInput: string) => void;
@@ -8,22 +10,15 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
   const [searchInput, setSearchInput] = React.useState("");
 
   const handleSearchInput = () => {
-    handleSearch(searchInput)
+    handleSearch(searchInput);
   };
 
   return (
     <nav className="bg-zinc-200 border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="" className="flex items-center">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8 mr-3"
-            alt="Flowbite Logo"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap">
-            Flowbite
-          </span>
-        </a>
+        <Link to={"/"}>
+          <Logo />
+        </Link>
         <div className="flex md:order-2">
           <button
             type="button"
@@ -129,29 +124,28 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
           </div>
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:flex-row md:space-x-8 md:mt-0">
             <li>
-              <a
-                href="#"
+              <Link
+                to={"/admin-products"}
                 className="block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700"
-                aria-current="page"
               >
                 Products
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to={"/admin-orders"}
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
               >
                 Orders
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to={"/admin-users"}
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
               >
                 Users
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

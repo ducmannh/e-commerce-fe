@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import AdminHeader from "./AdminHeader";
+import AdminHeader from "../AdminHeader";
 import { MdModeEditOutline } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { listProducts, listUsers } from "../../redux/storeSlice";
-import Button from "../../components/Button";
+import { listProducts, listUsers } from "../../../redux/storeSlice";
+import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Toaster, toast } from "react-hot-toast";
