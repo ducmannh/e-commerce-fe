@@ -15,6 +15,8 @@ import AdminHome from "./pages/admin/product/AdminHome";
 import AdminCreateProduct from "./pages/admin/product/AdminCreateProduct";
 import AdminUpdateProduct from "./pages/admin/product/AdminUpdateProduct";
 import AdminHomeOrder from "./pages/admin/order/AdminHomeOrder";
+import AdminHomeUser from "./pages/admin/user/AdminHomeUser";
+import AdminUpdateUser from "./pages/admin/user/AdminUpdateUser";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ const router = createBrowserRouter([
   {
     path: "/admin-orders",
     element: <AdminHomeOrder />,
+  },
+  {
+    path: "/admin-users",
+    element: <AdminHomeUser />,
+  },
+  {
+    path: "/admin-users/update-user/:id",
+    element: <AdminUpdateUser />,
   },
 ]);
 

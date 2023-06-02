@@ -18,23 +18,25 @@ const AdminHome = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<string>("");
-  const [nameUser, setNameUser] = React.useState<string | null>("")
+  const [selectAll, setSelectAll] = React.useState<boolean>(false);
+  const [selectCkb, setSelectCkb] = React.useState<any[]>([]);
+  const [count, setCount] = React.useState<number>(0);
+  const [nameUser, setNameUser] = React.useState<string | null>("");
   const products = useSelector((value: any) => value.store.products);
-  const name = useSelector((value: any) => value.store.dataName)
+  const name = useSelector((value: any) => value.store.dataName);
+  const isAnySelected = selectCkb.length > 0;
 
   React.useEffect(() => {
-    if(name) {
-      localStorage.setItem("name", (name))
+    if (name) {
+      localStorage.setItem("name", name);
     }
     setNameUser(localStorage.getItem("name"));
-  }, [name])
+  }, [name]);
 
   React.useEffect(() => {
-    axios
-      .get("http://localhost:2304/users")
-      .then((res) => {
-        dispatch(listUsers(res.data))
-      });
+    axios.get("http://localhost:2304/users").then((res) => {
+      dispatch(listUsers(res.data));
+    });
   }, []);
 
   const getProduct = () => {
@@ -75,29 +77,93 @@ const AdminHome = () => {
     }
   };
 
+  const handleSelectedAll = (e: any) => {
+    const isChecked = e.target.checked;
+    setSelectAll(isChecked);
+
+    if (isChecked) {
+      const selectedAll = products.map((value: any) => ({ id: value._id }));
+      setSelectCkb(selectedAll);
+      setCount(products.length);
+    } else {
+      setSelectCkb([]);
+      setCount(0);
+    }
+  };
+
+  const handleSelectOneCkb = (e: any, productItem: any) => {
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      setSelectCkb((prev) => [...prev, { id: productItem._id }]);
+      setCount(count + 1);
+    } else {
+      setSelectCkb((prev) =>
+        prev.filter((item) => item.id !== productItem._id)
+      );
+      setSelectAll(false);
+      setCount(count - 1);
+    }
+
+    if (count === products.length - 1) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  };
+
+  const handleDeleteSelected = () => {
+    const newList = products.filter(
+      (select: any) => selectCkb.some((item) => item.id === select._id)
+    );
+    const newListId = newList.map((item: any) => item._id);
+    console.log(newListId)
+    axios.delete("http://localhost:2304/products",  newListId).then((res) => {
+      console.log(res.data)
+    }).catch((err) => {
+      console.log("err", err)
+    })
+  };
+
   return (
     <div>
       <AdminHeader handleSearch={handleSearch} />
       <Toaster />
 
       <div className="text-2xl mx-10 flex items-center my-6">
-        <p className="mr-4">Welcome back, {nameUser}</p>
-        <div
-          className="underline decoration-blue-800 text-blue-800 mr-5 cursor-pointer"
-          onClick={() => navigate("/admin-login")}
-        >
-          Logout
+        <div className="flex-grow">
+          <div className="flex">
+            Welcome back, {nameUser}
+            <div
+              className="underline decoration-blue-800 text-blue-800 ml-5 cursor-pointer"
+              onClick={() => navigate("/admin-login")}
+            >
+              Logout
+            </div>
+          </div>
         </div>
-        <Button
-          className="flex items-center"
-          size="small"
-          onClick={() => navigate("/admin/create-product")}
-        >
-          <p className="text-2xl mr-2">
-            <IoIosAddCircleOutline />
-          </p>
-          <p>Add Product</p>
-        </Button>
+        <div className="flex">
+          {isAnySelected && (
+            <Button
+              className="flex items-center mr-5"
+              size="small"
+              onClick={handleDeleteSelected}
+            >
+              <p>Delete Product</p>
+            </Button>
+          )}
+
+          <Button
+            className="flex items-center"
+            size="small"
+            onClick={() => navigate("/admin/create-product")}
+          >
+            <p className="text-2xl mr-2">
+              <IoIosAddCircleOutline />
+            </p>
+            <p>Add Product</p>
+          </Button>
+        </div>
       </div>
 
       {open && (
@@ -164,6 +230,14 @@ const AdminHome = () => {
         <table className="w-full text-md text-center text-gray-500 table-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
+              <th className="border px-6 py-3">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                  checked={selectAll}
+                  onChange={(e) => handleSelectedAll(e)}
+                />
+              </th>
               <th className="border px-6 py-3">Image</th>
               <th className="border px-6 py-3">Product Name</th>
               <th className="border px-6 py-3">Description</th>
@@ -177,6 +251,16 @@ const AdminHome = () => {
             {products.map((productItem: any) => {
               return (
                 <tr key={productItem._id} className="bg-white border-b">
+                  <td className="border px-6 py-4">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                      checked={selectCkb.some(
+                        (item: any) => item.id === productItem._id
+                      )}
+                      onChange={(e) => handleSelectOneCkb(e, productItem)}
+                    />
+                  </td>
                   <td className="px-6 py-4 flex justify-center">
                     <img
                       src={productItem.image}

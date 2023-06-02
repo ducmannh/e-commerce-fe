@@ -9,17 +9,43 @@ import { format } from "date-fns";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Button from "../../../components/Button";
 
 const AdminHomeOrder = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<string>("");
+  const [selectAll, setSelectAll] = React.useState<boolean>(false);
+  const [selectCkb, setSelectCkb] = React.useState<any[]>([]);
+  const [count, setCount] = React.useState<number>(0);
   const order = useSelector((value: any) => value.store.order);
-  const name = localStorage.getItem("name")
+  const name = localStorage.getItem("name");
+  const isAnySelected = selectCkb.length > 0;
+
+  const getOrders = () => {
+    axios.get("http://localhost:2304/orders").then((res) => {
+      dispatch(listOrders(res.data));
+    });
+  };
 
   const handleSearch = (searchInput: string) => {
-    console.log(searchInput);
+    if (searchInput) {
+      const searchResult = order.filter((value: any) => {
+        return (
+          value.user.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+          value.deliveryAddress.address
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          value.deliveryAddress.city
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
+        );
+      });
+      dispatch(listOrders(searchResult));
+    } else {
+      getOrders();
+    }
   };
 
   const handleOpenDialog = (id: string) => {
@@ -35,10 +61,48 @@ const AdminHomeOrder = () => {
     });
   };
 
+  const handleSelectedAll = (e: any) => {
+    const isChecked = e.target.checked;
+    setSelectAll(isChecked);
+
+    if (isChecked) {
+      const selectedAll = order.map((value: any) => ({ id: value._id }));
+      setSelectCkb(selectedAll);
+      setCount(order.length);
+    } else {
+      setSelectCkb([]);
+      setCount(0);
+    }
+  };
+
+  const handleSelectOneCkb = (e: any, value: any) => {
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      setSelectCkb((prev) => [...prev, { id: value._id }]);
+      setCount(count + 1);
+    } else {
+      setSelectCkb((prev) => prev.filter((item) => item.id !== value._id));
+      setSelectAll(false);
+      setCount(count - 1);
+    }
+
+    if (count === order.length - 1) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  };
+
+  const handleDeleteSelected = () => {
+    const newList = order.filter(
+      (select: any) => selectCkb.some((item) => item.id === select._id)
+    );
+    console.log(newList);
+  }
+
   React.useEffect(() => {
-    axios.get("http://localhost:2304/orders").then((res) => {
-      dispatch(listOrders(res.data));
-    });
+    getOrders();
   }, []);
 
   return (
@@ -47,13 +111,26 @@ const AdminHomeOrder = () => {
       <Toaster />
 
       <div className="text-2xl mx-10 flex items-center my-6">
-        <p className="mr-4">Welcome back, {name}</p>
-        <div
-          className="underline decoration-blue-800 text-blue-800 mr-5 cursor-pointer"
-          onClick={() => navigate("/admin-login")}
-        >
-          Logout
+        <div className="flex-grow">
+          <div className="flex my-5">
+            Welcome back, {name}
+            <div
+              className="underline decoration-blue-800 text-blue-800 ml-5 cursor-pointer"
+              onClick={() => navigate("/admin-login")}
+            >
+              Logout
+            </div>
+          </div>
         </div>
+        {isAnySelected && (
+          <Button
+            className="flex items-center"
+            size="small"
+            onClick={handleDeleteSelected}
+          >
+            <p>Delete Product</p>
+          </Button>
+        )}
       </div>
 
       {open && (
@@ -79,7 +156,7 @@ const AdminHomeOrder = () => {
               </svg>
             </button>
             <p className="mb-4 text-center text-lg">
-              Are you sure you want to delete this product?
+              Are you sure you want to delete this order?
             </p>
             <svg
               aria-hidden="true"
@@ -120,6 +197,14 @@ const AdminHomeOrder = () => {
         <table className="w-full text-md text-center text-gray-500 table-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
+              <th className="border px-6 py-3">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                  checked={selectAll}
+                  onChange={(e) => handleSelectedAll(e)}
+                />
+              </th>
               <th className="border px-6 py-3">Name</th>
               <th className="border px-6 py-3">Email</th>
               <th className="border px-6 py-3">Address</th>
@@ -140,6 +225,16 @@ const AdminHomeOrder = () => {
 
               return (
                 <tr key={index}>
+                  <td className="border px-6 py-4">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                      checked={selectCkb.some(
+                        (item: any) => item.id === value._id
+                      )}
+                      onChange={(e) => handleSelectOneCkb(e, value)}
+                    />
+                  </td>
                   <td className="border px-6 py-4">{orderUsers.name}</td>
                   <td className="border px-6 py-4">{orderUsers.email}</td>
                   <td className="border px-6 py-4">{orderAddress.address}</td>

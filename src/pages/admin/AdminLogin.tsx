@@ -65,6 +65,7 @@ const AdminLogin = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center justify-center h-screen"
     >
+      <Toaster />
       <div className="border-2 border-zinc-950 rounded-lg p-8">
         <Text variant="body-one" className="mb-14 text-center">
           LOGIN
@@ -106,7 +107,6 @@ const AdminLogin = () => {
             Login
           </Button>
         </div>
-        <Toaster />
 
         <div className="flex justify-center mt-8">
           <Text variant="body-two">

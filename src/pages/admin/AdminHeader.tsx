@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../../components/icons/Logo";
 
 interface AdminHeaderProps {
@@ -8,6 +8,10 @@ interface AdminHeaderProps {
 
 const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
   const [searchInput, setSearchInput] = React.useState("");
+  const location = useLocation();
+  const isActiveProduct = location.pathname === "/admin-products";
+  const isActiveOrder = location.pathname === "/admin-orders";
+  const isActiveUser = location.pathname === "/admin-users";
 
   const handleSearchInput = () => {
     handleSearch(searchInput);
@@ -126,7 +130,9 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
             <li>
               <Link
                 to={"/admin-products"}
-                className="block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700"
+                className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
+                  isActiveProduct ? "text-blue-700" : ""
+                }`}
               >
                 Products
               </Link>
@@ -134,7 +140,9 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
             <li>
               <Link
                 to={"/admin-orders"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
+                  isActiveOrder ? "text-blue-700" : ""
+                }`}
               >
                 Orders
               </Link>
@@ -142,7 +150,9 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
             <li>
               <Link
                 to={"/admin-users"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
+                  isActiveUser ? "text-blue-700" : ""
+                }`}
               >
                 Users
               </Link>

@@ -34,7 +34,6 @@ const AdminUpdateProduct = () => {
     axios
       .get(`http://localhost:2304/products/${id}`)
       .then((res) => {
-        console.log(res.data);
         const { image, name, description, price, createdAt } = res.data;
         setValue("image", image);
         setValue("name", name);
