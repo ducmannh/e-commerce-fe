@@ -95,11 +95,17 @@ const AdminHomeOrder = () => {
   };
 
   const handleDeleteSelected = () => {
-    const newList = order.filter(
-      (select: any) => selectCkb.some((item) => item.id === select._id)
+    const newList = order.filter((select: any) =>
+      selectCkb.some((item) => item.id === select._id)
     );
-    console.log(newList);
-  }
+    const newListId = newList.map((item: any) => item._id);
+
+    axios
+      .delete("http://localhost:2304/orders", { data: { ids: newListId } })
+      .then((res) => {
+        dispatch(listOrders(res.data));
+      });
+  };
 
   React.useEffect(() => {
     getOrders();

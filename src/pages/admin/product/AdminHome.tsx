@@ -113,16 +113,19 @@ const AdminHome = () => {
   };
 
   const handleDeleteSelected = () => {
-    const newList = products.filter(
-      (select: any) => selectCkb.some((item) => item.id === select._id)
+    const newList = products.filter((select: any) =>
+      selectCkb.some((item) => item.id === select._id)
     );
     const newListId = newList.map((item: any) => item._id);
-    console.log(newListId)
-    axios.delete("http://localhost:2304/products",  newListId).then((res) => {
-      console.log(res.data)
-    }).catch((err) => {
-      console.log("err", err)
-    })
+    
+    axios
+      .delete("http://localhost:2304/products", { data: { ids: newListId } })
+      .then((res) => {
+        dispatch(listProducts(res.data));
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   };
 
   return (

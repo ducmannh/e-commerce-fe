@@ -47,8 +47,8 @@ const AdminLogin = () => {
     );
 
     if (existingUser) {
-      toast.success("Login successful");
       navigate("/admin-products");
+      toast.success("Login successful");
     } else {
       toast.error("User Name or Password incorrect");
     }

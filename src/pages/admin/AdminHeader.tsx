@@ -131,7 +131,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
               <Link
                 to={"/admin-products"}
                 className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
-                  isActiveProduct ? "text-blue-700" : ""
+                  isActiveProduct ? "text-indigo-600" : ""
                 }`}
               >
                 Products
@@ -141,7 +141,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
               <Link
                 to={"/admin-orders"}
                 className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
-                  isActiveOrder ? "text-blue-700" : ""
+                  isActiveOrder ? "text-indigo-600" : ""
                 }`}
               >
                 Orders
@@ -151,7 +151,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
               <Link
                 to={"/admin-users"}
                 className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
-                  isActiveUser ? "text-blue-700" : ""
+                  isActiveUser ? "text-indigo-600" : ""
                 }`}
               >
                 Users
