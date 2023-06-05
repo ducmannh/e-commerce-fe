@@ -63,7 +63,7 @@ const AdminLogin = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center h-screen"
+      className="flex flex-col items-center justify-center h-screen mx-5"
     >
       <Toaster />
       <div className="border-2 border-zinc-950 rounded-lg p-8">

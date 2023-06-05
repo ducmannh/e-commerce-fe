@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../components/Button";
 import Text from "../components/Text";
 import Icon from "../components/icons/Icon";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 
 const Home = () => {
@@ -60,8 +60,10 @@ const Home = () => {
         className="absolute min-h-screen object-cover -top-[102px] -z-10"
         src="https://res.cloudinary.com/dbspz5tmg/image/upload/v1679743571/youtube/2023/march/komorebi-development/young-person-wearing-hoodie-mockup_2_mf5tty.png"
       />
-      <div className="mx-[50px] min-h-screen flex flex-col justify-end items-start pb-56">
-        <Text variant="heading-two">HOODIE HEAVEN</Text>
+      <div className="min-h-screen flex flex-col justify-end items-start pb-56 md:mx-[50px] ml-3">
+        <Text variant="heading-two" className="text-white md:text-slate-900">
+          HOODIE HEAVEN
+        </Text>
         <Button className="mt-7" onClick={navigateToShop}>
           <span className="flex">
             <Icon name="arrow-small-right" />
@@ -107,18 +109,18 @@ const Home = () => {
         </Text>
       </div>
 
-      <div className="mt-[82px] mb-[100px] relative h-[768px]">
+      <div className="mt-[82px] relative h-[768px] -mb-72 md:mb-[100px]">
         {images.map((image, index) => (
           <div key={index}>
             <img
-              className={`absolute w-full h-full transition-opacity duration-500 ${
+              className={`absolute w-full h-1/2 md:h-full transition-opacity duration-500 ${
                 index === currentSlide ? "opacity-100" : "opacity-0"
               }`}
               src={image}
               alt={`Slide ${index}`}
             />
             <button
-              className="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-zinc-950 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:opacity-90 motion-reduce:transition-none"
+              className="absolute bottom-1/2 md:bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-zinc-950 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:opacity-90 motion-reduce:transition-none"
               onClick={prevSlide}
             >
               <span className="inline-block h-8 w-8">
@@ -140,7 +142,7 @@ const Home = () => {
             </button>
 
             <button
-              className="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-zinc-950 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:opacity-90 motion-reduce:transition-none"
+              className="absolute bottom-1/2 md:bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-zinc-950 opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:opacity-90 motion-reduce:transition-none"
               onClick={nextSlide}
             >
               <span className="inline-block h-8 w-8">
@@ -162,12 +164,14 @@ const Home = () => {
             </button>
           </div>
         ))}
-        <Button className="absolute bottom-20 left-[30%] sm:left-[40%] md:left-[45%]">
-          <span className="flex">
-            <Icon name="arrow-small-right" />
-            <span className="ml-[10px]">LEARN MORE</span>
-          </span>
-        </Button>
+        <Link to={"/shop"}>
+          <Button className="absolute bottom-1/2 md:bottom-0 left-[30%] sm:left-[40%] md:left-[45%] mb-2">
+            <span className="flex">
+              <Icon name="arrow-small-right" />
+              <span className="ml-[10px]">LEARN MORE</span>
+            </span>
+          </Button>
+        </Link>
       </div>
     </section>
   );

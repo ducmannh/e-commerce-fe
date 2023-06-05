@@ -38,7 +38,7 @@ const ShippingAddress = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async () => {
     try {
       const { address, city, name, email } = getValues();
       const orderDetails: OrderDetailsType = {
@@ -62,8 +62,45 @@ const ShippingAddress = () => {
   });
   return (
     <div className="my-[60px] mx-[50px]">
-      <Text variant="heading-three">Shipping Address</Text>
-      <div className="grid grid-cols-2 gap-10">
+      <Text variant="heading-three" className="text-center">Shipping Address</Text>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div>
+          <div className="space-y-7">
+            {cart.map((cartItem) => {
+              return (
+                <div className="mt-10 md:flex md:items-start md:justify-between" key={cartItem.id}>
+                  <img
+                    src={cartItem.image}
+                    alt="image"
+                    width={170}
+                    height={170}
+                    className="w-[170px] h-[170px] rounded-[18px] m-auto"
+                  />
+                  <div className="flex justify-between flex-1 mt-5 sm:justify-evenly md:justify-between md:ml-7">
+                    <Text variant="subheading-two">{cartItem.name}</Text>
+                    <Text variant="subheading-two">
+                      $ {cartItem.price} x {cartItem.quantity}{" "}
+                    </Text>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-10 flex justify-between sm:justify-evenly md:justify-between">
+            <Text variant="body-two">Subtotal</Text>
+            <Text variant="subheading-two">$ {cartTotal}</Text>
+          </div>
+          <div className="mt-10 flex justify-between sm:justify-evenly md:justify-between">
+            <Text variant="body-two">Shipping</Text>
+            <Text variant="subheading-two">Free</Text>
+          </div>
+          <div className="mt-[30px] mb-9 h-[1.8px] bg-black"></div>
+          <div className="flex justify-between sm:justify-evenly md:justify-between">
+            <Text variant="body-two">Total</Text>
+            <Text variant="subheading-two">$ {cartTotal}</Text>
+          </div>
+        </div>
+
         <form className="max-w-xl">
           {/* Name */}
           <div className="flex flex-col items-start space-y-3 w-full mt-3">
@@ -165,43 +202,6 @@ const ShippingAddress = () => {
             <Button onClick={onSubmit}>CONTINUE TO PAYMENT</Button>
           </div>
         </form>
-
-        <div>
-          <div className="space-y-7">
-            {cart.map((cartItem) => {
-              return (
-                <div className="flex items-start" key={cartItem.id}>
-                  <img
-                    src={cartItem.image}
-                    alt="image"
-                    width={170}
-                    height={170}
-                    className="w-[170px] h-[170px] rounded-[18px] mr-[46px]"
-                  />
-                  <div className="flex justify-between flex-1">
-                    <Text variant="subheading-three">{cartItem.name}</Text>
-                    <Text variant="subheading-three">
-                      $ {cartItem.price} x {cartItem.quantity}{" "}
-                    </Text>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-10 flex justify-between">
-            <Text variant="body-two">Subtotal</Text>
-            <Text variant="subheading-two">$ {cartTotal}</Text>
-          </div>
-          <div className="mt-10 flex justify-between">
-            <Text variant="body-two">Shipping</Text>
-            <Text variant="subheading-two">Free</Text>
-          </div>
-          <div className="mt-[30px] mb-9 h-[1.8px] bg-black"></div>
-          <div className="flex justify-between">
-            <Text variant="body-two">Total</Text>
-            <Text variant="subheading-two">$ {cartTotal}</Text>
-          </div>
-        </div>
       </div>
     </div>
   );

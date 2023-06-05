@@ -117,7 +117,7 @@ const AdminHome = () => {
       selectCkb.some((item) => item.id === select._id)
     );
     const newListId = newList.map((item: any) => item._id);
-    
+
     axios
       .delete("http://localhost:2304/products", { data: { ids: newListId } })
       .then((res) => {
@@ -133,39 +133,36 @@ const AdminHome = () => {
       <AdminHeader handleSearch={handleSearch} />
       <Toaster />
 
-      <div className="text-2xl mx-10 flex items-center my-6">
-        <div className="flex-grow">
-          <div className="flex">
-            Welcome back, {nameUser}
-            <div
-              className="underline decoration-blue-800 text-blue-800 ml-5 cursor-pointer"
-              onClick={() => navigate("/admin-login")}
-            >
-              Logout
-            </div>
+      <div className="text-2xl mx-10 flex flex-col md:flex-row md:justify-between items-center my-6">
+        <div className="flex">
+          Welcome back, {nameUser}
+          <div
+            className="underline decoration-blue-800 text-blue-800 ml-5 cursor-pointer"
+            onClick={() => navigate("/admin-login")}
+          >
+            Logout
           </div>
         </div>
-        <div className="flex">
-          {isAnySelected && (
-            <Button
-              className="flex items-center mr-5"
-              size="small"
-              onClick={handleDeleteSelected}
-            >
-              <p>Delete Product</p>
-            </Button>
-          )}
-
+        <div className="flex flex-col mt-3 lg:flex-row lg:justify-between">
           <Button
-            className="flex items-center"
+            className="flex items-center lg:mr-5"
             size="small"
             onClick={() => navigate("/admin/create-product")}
           >
             <p className="text-2xl mr-2">
               <IoIosAddCircleOutline />
             </p>
-            <p>Add Product</p>
+            Add Product
           </Button>
+          {isAnySelected && (
+            <Button
+              className="flex items-center mt-3 lg:mt-0"
+              size="small"
+              onClick={handleDeleteSelected}
+            >
+              <p className="m-auto">Delete Product</p>
+            </Button>
+          )}
         </div>
       </div>
 
@@ -232,7 +229,7 @@ const AdminHome = () => {
       <div className="mx-10 mb-10">
         <table className="w-full text-md text-center text-gray-500 table-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-            <tr>
+            <tr className="hidden lg:table-row">
               <th className="border px-6 py-3">
                 <input
                   type="checkbox"
@@ -244,7 +241,7 @@ const AdminHome = () => {
               <th className="border px-6 py-3">Image</th>
               <th className="border px-6 py-3">Product Name</th>
               <th className="border px-6 py-3">Description</th>
-              <th className="border px-6 py-3">Price</th>
+              <th className="border px-6 py-3">Price ($)</th>
               <th className="border px-6 py-3">Created At</th>
               <th className="border px-6 py-3">Edit</th>
               <th className="border px-6 py-3">Delete</th>
@@ -253,8 +250,14 @@ const AdminHome = () => {
           <tbody>
             {products.map((productItem: any) => {
               return (
-                <tr key={productItem._id} className="bg-white border-b">
-                  <td className="border px-6 py-4">
+                <tr
+                  key={productItem._id}
+                  className="bg-white border-b block lg:table-row"
+                >
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left lg:table-cell"
+                    data-title=""
+                  >
                     <input
                       type="checkbox"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
@@ -264,39 +267,65 @@ const AdminHome = () => {
                       onChange={(e) => handleSelectOneCkb(e, productItem)}
                     />
                   </td>
-                  <td className="px-6 py-4 flex justify-center">
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Image"
+                  >
                     <img
                       src={productItem.image}
                       alt="image"
                       width={100}
                       height={100}
+                      className="ml-auto"
                     />
                   </td>
-                  <td className="border px-6 py-4">{productItem.name}</td>
-                  <td className="px-4 py-4 flex justify-center">
-                    <p className="whitespace-normal break-words max-w-[200px]">
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Product Name"
+                  >
+                    {productItem.name}
+                  </td>
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-left"
+                    data-title="Description"
+                  >
+                    <p className="w-48 sm:w-96 md:w-3/4 lg:w-full ml-auto">
                       {productItem.description}
                     </p>
                   </td>
-                  <td className="border px-6 py-4">$ {productItem.price}</td>
-                  <td className="border px-6 py-4">
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Price($)"
+                  >
+                    {productItem.price}
+                  </td>
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Created At"
+                  >
                     {format(
                       new Date(productItem.createdAt),
                       "dd/MM/yyyy HH:mm:ss"
                     )}
                   </td>
-                  <td className="border px-6 py-4">
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Edit"
+                  >
                     <div
                       onClick={() => handleEditProduct(productItem._id)}
-                      className="text-2xl flex justify-center text-marian-blue cursor-pointer"
+                      className="text-2xl flex justify-end lg:justify-center text-marian-blue cursor-pointer"
                     >
                       <MdModeEditOutline />
                     </div>
                   </td>
-                  <td className="border px-6 py-4">
+                  <td
+                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell"
+                    data-title="Delete"
+                  >
                     <div
                       onClick={() => handleOpenDialog(productItem._id)}
-                      className="text-2xl flex justify-center text-rose-800 cursor-pointer"
+                      className="text-2xl flex justify-end lg:justify-center text-rose-800 cursor-pointer"
                     >
                       <RiDeleteBin6Line />
                     </div>

@@ -14,7 +14,7 @@ const Header = () => {
       <Link to={"/"}>
         <Logo />
       </Link>
-      <div className="flex items-center space-x-[38px]">
+      <div className="flex items-center gap-2 sm:gap-6">
         <Link to={"/shop"}>
           <Text variant="caption-one">Shop</Text>
         </Link>

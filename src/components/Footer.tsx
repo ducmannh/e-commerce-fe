@@ -3,10 +3,10 @@ import Text from "./Text";
 
 const Footer = () => {
   return (
-    <div className="bg-marian-blue pt-[20px] pb-6 px-[70px]">
-      <div className="flex items-center justify-between">
+    <div className="bg-marian-blue pt-[20px] pb-6 md:px-[70px]">
+      <div className="text-center md:flex md:items-center md:justify-between md:text-left">
         <div>
-          <Text variant="heading-three" className="text-white ">
+          <Text variant="heading-three" className="text-white">
             OUR COMPANY
           </Text>
           <div className="mt-[14px] space-y-2">
@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div>
+        <div className="mt-3">
           <Text variant="heading-three" className="text-white">
             SUPPORT
           </Text>
@@ -43,15 +43,15 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="mt-[100px]">
-        <div className="flex items-center justify-between">
+      <div className="mt-[50px] md:mt-[100px]">
+        <div className="text-center md:flex md:items-center md:justify-between md:text-left">
           <div>
             <Text variant="caption-four" className="text-white italic">
               Do not sell my personal information <br /> © 2023 KOMO
             </Text>
           </div>
 
-          <div className="flex items-center space-x-[38px]">
+          <div className="flex items-center space-x-[38px] justify-center mt-2">
             <Link
               to=""
               className="w-[38px] h-[38px] rounded-[19px] bg-white flex items-center justify-center"

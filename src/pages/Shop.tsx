@@ -38,13 +38,13 @@ const Shop = () => {
 
   return (
     <>
-      <section className="relative w-full flex items-end sm:h-[768px] md:h-[768px]">
+      <section className="relative w-full flex items-end">
         <img
           src="https://res.cloudinary.com/dbspz5tmg/image/upload/v1679743570/youtube/2023/march/komorebi-development/young-person-wearing-hoodie-mockup_1_2_exnour.png"
           alt="image"
-          className="absolute -z-10 w-full h-full object-cover aspect-[1.6]"
+          className="absolute min-h-screen object-cover -top-[102px] -z-10"
         />
-        <div className="mx-[16px] md:mx-[50px] mb-8 md:mb-40 sm:mb-36">
+        <div className="mx-[50px] min-h-screen flex flex-col justify-end items-start pb-56">
           <Text variant="heading-three" className="mb-3">
             Lastest hoodie styles online
           </Text>
@@ -52,15 +52,15 @@ const Shop = () => {
         </div>
       </section>
 
-      <section className="mx-[50px] bg-white">
-        <Text variant="heading-one" className="mt-[82px]">
+      <section className="text-center bg-white xl:mt-28 2xl:mt-60">
+        <Text variant="heading-one" className="">
           Experience comfort and style
         </Text>
-        <Text variant="body-two" className="mb-[80px]">
+        <Text variant="body-two" className="mb-[80px] mx-4">
           Perfect blend of comfort, style, and quality materials
         </Text>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[38px] mb-[180px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[38px] mb-16 mx-4">
           {products.map((productItem) => {
             return (
               <div key={productItem._id}>
@@ -71,17 +71,17 @@ const Shop = () => {
                       alt="image"
                       width={368}
                       height={368}
-                      className="w-[368px] h-[368px]"
+                      className="w-[368px] h-[368px] m-auto"
                     />
                   </div>
                 </Link>
                 <Text variant="heading-three" className="mt-7 mb-2">
                   {productItem.name}
                 </Text>
-                <Text variant="body-three">$ {productItem.price}</Text>
+                <Text variant="body-two">$ {productItem.price}</Text>
                 <Button
                   size="small"
-                  className="mt-7"
+                  className="mt-7 w-full"
                   onClick={() => handleAddItemToCart(productItem)}
                 >
                   Add to bag

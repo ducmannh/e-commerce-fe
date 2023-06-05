@@ -75,22 +75,21 @@ const AdminHomeOrder = () => {
     }
   };
 
-  const handleSelectOneCkb = (e: any, value: any) => {
+  const handleSelectOneCkb = (e: any, orderItem: any) => {
     const isChecked = e.target.checked;
 
     if (isChecked) {
-      setSelectCkb((prev) => [...prev, { id: value._id }]);
+      setSelectCkb((prev) => [...prev, { id: orderItem._id }]);
       setCount(count + 1);
+      if (count === order.length - 1) {
+        setSelectAll(true);
+      } else {
+        setSelectAll(false);
+      }
     } else {
-      setSelectCkb((prev) => prev.filter((item) => item.id !== value._id));
+      setSelectCkb((prev) => prev.filter((item) => item.id !== orderItem._id));
       setSelectAll(false);
       setCount(count - 1);
-    }
-
-    if (count === order.length - 1) {
-      setSelectAll(true);
-    } else {
-      setSelectAll(false);
     }
   };
 
@@ -134,7 +133,7 @@ const AdminHomeOrder = () => {
             size="small"
             onClick={handleDeleteSelected}
           >
-            <p>Delete Product</p>
+            <p>Delete Orders</p>
           </Button>
         )}
       </div>
@@ -223,14 +222,14 @@ const AdminHomeOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {order.map((value: any, index: number) => {
+            {order.map((value: any) => {
               const orderUsers = value.user;
               const orderAddress = value.deliveryAddress;
               const orderItems = value.orderItems;
               const orderPayments = value.paymentDetails;
 
               return (
-                <tr key={index}>
+                <tr key={value._id}>
                   <td className="border px-6 py-4">
                     <input
                       type="checkbox"

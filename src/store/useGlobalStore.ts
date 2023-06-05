@@ -90,7 +90,7 @@ const useGlobalStore = create<IGlobalStore>()(
       },
     }),
     {
-      name: "komorebi-production-store",
+      name: "manh-production-store",
       storage: createJSONStorage(() => localStorage),
     }
   )

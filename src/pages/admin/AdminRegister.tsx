@@ -79,7 +79,7 @@ const AdminRegister = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center h-screen"
+      className="flex flex-col items-center justify-center h-screen mx-5"
     >
       <div className="border-2 border-zinc-950 rounded-lg p-8">
         <Text variant="body-one" className="mb-14 text-center">

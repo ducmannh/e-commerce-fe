@@ -40,22 +40,22 @@ const ProductDetails = () => {
 
   return (
     <section className="mt-[82px]">
-      <div className="grid grid-cols-2 mb-[180px] gap-10 mx-[50px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 mb-[180px] gap-10 mx-[50px]">
         <div>
           <img
             src={product?.image}
             alt="image"
-            className="h-[618px] object-cover"
+            className="h-[300px] lg:h-[618px] object-cover m-auto"
           />
         </div>
 
         <div>
-          <Text variant="heading-one">{product?.name}</Text>
-          <Text variant="subheading-two" className="my-7">
+          <Text variant="heading-one" className="text-center">{product?.name}</Text>
+          <Text variant="subheading-one" className="my-7 text-center">
             $ {product?.price}
           </Text>
           <Text variant="body-two">{product?.description}</Text>
-          <Button size="small" className="mt-14" onClick={handleAddItemToCart}>
+          <Button size="small" className="mt-14 w-full" onClick={handleAddItemToCart}>
             ADD TO BAG
           </Button>
         </div>

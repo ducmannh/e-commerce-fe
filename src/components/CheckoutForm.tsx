@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 import {
@@ -14,6 +15,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const { emptyCart } = useGlobalStore();
+  // @ts-ignore
   const [email, setEmail] = React.useState("");
   const [message, setMessage] = React.useState<string | null | undefined>(null);
   const [isLoading, setIsLoading] = React.useState(false);

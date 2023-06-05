@@ -44,7 +44,7 @@ const AdminCreateProduct = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="fixed inset-0 flex items-center justify-center z-50 ">
-          <div className="bg-zinc-50 w-1/2 rounded-lg shadow-2xl">
+          <div className="bg-zinc-50 w-full md:w-3/4 2xl:w-1/2 rounded-lg shadow-2xl mx-5">
             <div className="p-8">
               <Text variant="body-one" className="text-center mb-7">
                 ADD PRODUCT
@@ -117,10 +117,10 @@ const AdminCreateProduct = () => {
               </div>
             </div>
             <div className="flex justify-between p-4">
-              <Button type="submit" size="small" className="w-1/3">
+              <Button type="submit" size="small">
                 Add product
               </Button>
-              <Button type="button" size="small" className="w-1/3">
+              <Button type="button" size="small" className="w-36">
                 <a href={"/admin-products"}>Back</a>
               </Button>
             </div>
