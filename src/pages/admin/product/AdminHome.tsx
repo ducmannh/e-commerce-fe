@@ -228,9 +228,9 @@ const AdminHome = () => {
 
       <div className="mx-10 mb-10">
         <table className="w-full text-md text-center text-gray-500 table-auto">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-300">
             <tr className="hidden lg:table-row">
-              <th className="border px-6 py-3">
+              <th className="border border-zinc-950 px-6 py-3">
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
@@ -238,13 +238,13 @@ const AdminHome = () => {
                   onChange={(e) => handleSelectedAll(e)}
                 />
               </th>
-              <th className="border px-6 py-3">Image</th>
-              <th className="border px-6 py-3">Product Name</th>
-              <th className="border px-6 py-3">Description</th>
-              <th className="border px-6 py-3">Price ($)</th>
-              <th className="border px-6 py-3">Created At</th>
-              <th className="border px-6 py-3">Edit</th>
-              <th className="border px-6 py-3">Delete</th>
+              <th className="border border-zinc-950 px-6 py-3">Image</th>
+              <th className="border border-zinc-950 px-6 py-3">Product Name</th>
+              <th className="border border-zinc-950 px-6 py-3">Description</th>
+              <th className="border border-zinc-950 px-6 py-3">Price ($)</th>
+              <th className="border border-zinc-950 px-6 py-3">Created At</th>
+              <th className="border border-zinc-950 px-6 py-3">Edit</th>
+              <th className="border border-zinc-950 px-6 py-3">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -252,10 +252,10 @@ const AdminHome = () => {
               return (
                 <tr
                   key={productItem._id}
-                  className="bg-white border-b block lg:table-row"
+                  className="bg-white border border-zinc-950-b block lg:table-row even:bg-slate-200"
                 >
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left lg:table-cell"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left lg:table-cell"
                     data-title=""
                   >
                     <input
@@ -268,7 +268,7 @@ const AdminHome = () => {
                     />
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
                     data-title="Image"
                   >
                     <img
@@ -280,13 +280,13 @@ const AdminHome = () => {
                     />
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
                     data-title="Product Name"
                   >
                     {productItem.name}
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-left"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-left"
                     data-title="Description"
                   >
                     <p className="w-48 sm:w-96 md:w-3/4 lg:w-full ml-auto">
@@ -294,13 +294,13 @@ const AdminHome = () => {
                     </p>
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
-                    data-title="Price($)"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Price ($)"
                   >
                     {productItem.price}
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
                     data-title="Created At"
                   >
                     {format(
@@ -309,7 +309,7 @@ const AdminHome = () => {
                     )}
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
                     data-title="Edit"
                   >
                     <div
@@ -320,7 +320,7 @@ const AdminHome = () => {
                     </div>
                   </td>
                   <td
-                    className="border px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell"
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell"
                     data-title="Delete"
                   >
                     <div

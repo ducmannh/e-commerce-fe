@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../../components/icons/Logo";
@@ -68,7 +69,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
               id="search-navbar"
               className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search..."
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={(e: any) => setSearchInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSearchInput();

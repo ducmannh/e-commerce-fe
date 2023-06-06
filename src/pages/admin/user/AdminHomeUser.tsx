@@ -147,46 +147,46 @@ const AdminHomeUser = () => {
 
       <div className="mx-10 mb-10">
         <table className="w-full text-md text-center text-gray-500 table-auto">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-            <tr>
-              <th className="border px-6 py-3">Name</th>
-              <th className="border px-6 py-3">Email</th>
-              <th className="border px-6 py-3">Phone</th>
-              <th className="border px-6 py-3">Created At</th>
-              <th className="border px-6 py-3">Edit</th>
-              <th className="border px-6 py-3">Delete</th>
+          <thead className="text-xs text-gray-700 uppercase bg-gray-300">
+            <tr className="hidden md:table-row">
+              <th className="border border-zinc-950 px-6 py-3">Name</th>
+              <th className="border border-zinc-950 px-6 py-3">Email</th>
+              <th className="border border-zinc-950 px-6 py-3">Phone</th>
+              <th className="border border-zinc-950 px-6 py-3">Created At</th>
+              <th className="border border-zinc-950 px-6 py-3">Edit</th>
+              <th className="border border-zinc-950 px-6 py-3">Delete</th>
             </tr>
           </thead>
           <tbody>
             {user.map((userItem: any) => {
               return (
-                <tr key={userItem._id} className="bg-white border-b">
-                  <td className="border px-6 py-4">{userItem.name}</td>
-                  <td className="border px-6 py-4">{userItem.email}</td>
-                  <td className="border px-6 py-4">{userItem.phone}</td>
-                  <td className="border px-6 py-4">
+                <tr key={userItem._id} className="bg-white border-b even:bg-slate-200">
+                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Name">{userItem.name}</td>
+                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Email">{userItem.email}</td>
+                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Phone">{userItem.phone}</td>
+                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Created At">
                     {format(
                       new Date(userItem.createdAt),
                       "dd/MM/yyyy HH:mm:ss"
                     )}
                   </td>
 
-                  <td className="border px-6 py-4">
+                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Edit">
                     <div
                       onClick={() =>
                         handleEditProduct(userItem._id, userItem.name)
                       }
-                      className="text-2xl flex justify-center text-marian-blue cursor-pointer"
+                      className="text-2xl flex justify-end md:justify-center text-marian-blue cursor-pointer"
                     >
                       <MdModeEditOutline />
                     </div>
                   </td>
-                  <td className="border px-6 py-4">
+                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Delete">
                     <div
                       onClick={() =>
                         handleOpenDialog(userItem._id, userItem.name)
                       }
-                      className="text-2xl flex justify-center text-rose-800 cursor-pointer"
+                      className="text-2xl flex justify-end md:justify-center text-rose-800 cursor-pointer"
                     >
                       <RiDeleteBin6Line />
                     </div>

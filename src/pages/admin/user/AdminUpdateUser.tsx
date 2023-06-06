@@ -77,7 +77,7 @@ const AdminUpdateUser = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="fixed inset-0 flex items-center justify-center z-50 ">
-          <div className="bg-zinc-50 w-1/2 rounded-lg shadow-2xl">
+          <div className="bg-zinc-50 w-full mx-3 sm:mx-10 md:w-3/4 lg:w-1/2 rounded-lg shadow-2xl">
             <div className="p-8">
               <Text variant="body-one" className="text-center mb-3">
                 UPDATE USER
@@ -94,6 +94,9 @@ const AdminUpdateUser = () => {
                   disabled={true}
                 />
               </div>
+              <p className="text-rose-600 text-sm flex justify-end mb-3">
+                {errors.name?.message}
+              </p>
 
               <div className="flex items-center mb-3">
                 <label
@@ -162,10 +165,10 @@ const AdminUpdateUser = () => {
               </p>
             </div>
             <div className="flex justify-between p-4">
-              <Button type="submit" size="small" className="w-1/3">
+              <Button type="submit" size="small" className="">
                 Update User
               </Button>
-              <Button type="button" size="small" className="w-1/3">
+              <Button type="button" size="small" className="w-36">
                 <Link to={"/admin-users"}>Back</Link>
               </Button>
             </div>

@@ -115,7 +115,7 @@ const AdminHomeOrder = () => {
       <AdminHeader handleSearch={handleSearch} />
       <Toaster />
 
-      <div className="text-2xl mx-10 flex items-center my-6">
+      <div className="text-2xl mx-10 flex flex-col items-center my-6 md:flex-row">
         <div className="flex-grow">
           <div className="flex my-5">
             Welcome back, {name}
@@ -200,9 +200,9 @@ const AdminHomeOrder = () => {
 
       <div className="mx-10 mb-10">
         <table className="w-full text-md text-center text-gray-500 table-auto">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-            <tr>
-              <th className="border px-6 py-3">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-300">
+            <tr className="hidden lg:table-row">
+              <th className="border border-zinc-950 px-6 py-3">
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
@@ -210,15 +210,15 @@ const AdminHomeOrder = () => {
                   onChange={(e) => handleSelectedAll(e)}
                 />
               </th>
-              <th className="border px-6 py-3">Name</th>
-              <th className="border px-6 py-3">Email</th>
-              <th className="border px-6 py-3">Address</th>
-              <th className="border px-6 py-3">City</th>
-              <th className="border px-6 py-3">Products, Quantity</th>
-              <th className="border px-6 py-3">Total</th>
-              <th className="border px-6 py-3">Status</th>
-              <th className="border px-6 py-3">Order At</th>
-              <th className="border px-6 py-3">Delete</th>
+              <th className="border border-zinc-950 px-6 py-3">Name</th>
+              <th className="border border-zinc-950 px-6 py-3">Email</th>
+              <th className="border border-zinc-950 px-6 py-3">Address</th>
+              <th className="border border-zinc-950 px-6 py-3">City</th>
+              <th className="border border-zinc-950 px-6 py-3">Products, Quantity</th>
+              <th className="border border-zinc-950 px-6 py-3">Total ($)</th>
+              <th className="border border-zinc-950 px-6 py-3">Status</th>
+              <th className="border border-zinc-950 px-6 py-3">Order At</th>
+              <th className="border border-zinc-950 px-6 py-3">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -229,8 +229,11 @@ const AdminHomeOrder = () => {
               const orderPayments = value.paymentDetails;
 
               return (
-                <tr key={value._id}>
-                  <td className="border px-6 py-4">
+                <tr key={value._id} className="even:bg-slate-200">
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left lg:before:hidden lg:table-cell lg:text-center"
+                    data-title=""
+                  >
                     <input
                       type="checkbox"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
@@ -240,31 +243,73 @@ const AdminHomeOrder = () => {
                       onChange={(e) => handleSelectOneCkb(e, value)}
                     />
                   </td>
-                  <td className="border px-6 py-4">{orderUsers.name}</td>
-                  <td className="border px-6 py-4">{orderUsers.email}</td>
-                  <td className="border px-6 py-4">{orderAddress.address}</td>
-                  <td className="border px-6 py-4">{orderAddress.city}</td>
-                  <td className="border px-6 py-4">
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Name"
+                  >
+                    {orderUsers.name}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Email"
+                  >
+                    {orderUsers.email}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Address"
+                  >
+                    {orderAddress.address}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="City"
+                  >
+                    {orderAddress.city}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Products, Quantity"
+                  >
                     {orderItems.map((item: any, index: number) => {
                       return (
-                        <div key={index} className="flex justify-between">
-                          <div>{item.name}</div>
-                          <div>{item.quantity}</div>
+                        <div key={index} className="flex justify-end lg:justify-between">
+                          <div className="sm:mr-1">{item.name}</div>
+                          <div>
+                            <span className="text-rose-700 font-bold text-md sm:mr-1">
+                              x
+                            </span>
+                            {item.quantity}
+                          </div>
                         </div>
                       );
                     })}
                   </td>
-                  <td className="border px-6 py-4">
-                    $ {orderPayments.amount / 100}
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Total ($)"
+                  >
+                    {orderPayments.amount / 100}
                   </td>
-                  <td className="border px-6 py-4">{value.paymentStatus}</td>
-                  <td className="border px-6 py-4">
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Status"
+                  >
+                    {value.paymentStatus}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Order At"
+                  >
                     {format(new Date(value.createdAt), "dd/MM/yyyy HH:mm:ss")}
                   </td>
-                  <td className="border px-6 py-4">
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold lg:before:hidden lg:table-cell lg:text-center"
+                    data-title="Delete"
+                  >
                     <div
                       onClick={() => handleOpenDialog(value._id)}
-                      className="text-2xl flex justify-center text-rose-800 cursor-pointer"
+                      className="text-2xl flex justify-end lg:justify-center text-rose-800 cursor-pointer"
                     >
                       <RiDeleteBin6Line />
                     </div>
