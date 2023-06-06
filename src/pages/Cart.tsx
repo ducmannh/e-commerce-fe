@@ -23,13 +23,19 @@ const Cart = () => {
 
   return (
     <section className="md:mx-[50px]">
-      <Text variant="heading-one" className="my-[60px] text-center md:my-[82px]">
+      <Text
+        variant="heading-one"
+        className="my-[60px] text-center md:my-[82px]"
+      >
         Shopping Cart
       </Text>
       <div className="mx-7 md:space-y-[164px] md:ml-14">
         {cart.map((cartItem) => {
           return (
-            <div key={cartItem.id} className="mt-10 md:flex md:items-start md:justify-between">
+            <div
+              key={cartItem.id}
+              className="mt-10 md:flex md:items-start md:justify-between"
+            >
               <img
                 src={cartItem.image}
                 width={378}
@@ -76,15 +82,17 @@ const Cart = () => {
           USD ${cartTotal}
         </Text>
       </div>
-      <Button
-        className="mb-[100px] w-full"
-        size="large"
-        onClick={() => {
-          navigate("/checkout/shipping");
-        }}
-      >
-        Proceed to Check out
-      </Button>
+      <div className="flex justify-center items-center">
+        <Button
+          className="mb-[100px] w-full mx-5"
+          size="large"
+          onClick={() => {
+            navigate("/checkout/shipping");
+          }}
+        >
+          Proceed to Check out
+        </Button>
+      </div>
     </section>
   );
 };

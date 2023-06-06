@@ -96,7 +96,6 @@ const Home = () => {
           );
         })}
       </div>
-
       <div className="mt-[100px] mx-[50px] max-w-3xl">
         <Text variant="heading-one">KOMO hoodies</Text>
         <Text variant="body-two" className="mt-7">
@@ -108,7 +107,6 @@ const Home = () => {
           covered
         </Text>
       </div>
-
       <div className="mt-[82px] relative h-[768px] -mb-72 md:mb-[100px]">
         {images.map((image, index) => (
           <div key={index}>
