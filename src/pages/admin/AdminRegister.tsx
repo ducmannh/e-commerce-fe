@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
+import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers } from "../../redux/storeSlice";
 import { toast, Toaster } from "react-hot-toast";
@@ -62,7 +62,7 @@ const AdminRegister = () => {
       return;
     }
 
-    axios.post("http://localhost:2304/users", data).then((res) => {
+    axios.post("/users", data).then((res) => {
       dispatch(listUsers(res.data));
       toast.success("Register success");
     });
@@ -72,7 +72,7 @@ const AdminRegister = () => {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:2304/users")
+      .get("/users")
       .then((res) => dispatch(listUsers(res.data)));
   }, []);
 

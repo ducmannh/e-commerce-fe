@@ -6,7 +6,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { listProducts, listUsers } from "../../../redux/storeSlice";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
@@ -34,15 +34,13 @@ const AdminHome = () => {
   }, [name]);
 
   React.useEffect(() => {
-    axios.get("http://localhost:2304/users").then((res) => {
+    axios.get("/users").then((res) => {
       dispatch(listUsers(res.data));
     });
   }, []);
 
   const getProduct = () => {
-    axios
-      .get("http://localhost:2304/products")
-      .then((res) => dispatch(listProducts(res.data)));
+    axios.get("/products").then((res) => dispatch(listProducts(res.data)));
   };
 
   React.useEffect(() => {
@@ -55,7 +53,7 @@ const AdminHome = () => {
   };
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:2304/products/${id}`).then((res) => {
+    axios.delete(`/products/${id}`).then((res) => {
       dispatch(listProducts(res.data));
       setOpen(false);
       toast.success("Success deleted");
@@ -97,18 +95,17 @@ const AdminHome = () => {
     if (isChecked) {
       setSelectCkb((prev) => [...prev, { id: productItem._id }]);
       setCount(count + 1);
+      if (count === products.length - 1) {
+        setSelectAll(true);
+      } else {
+        setSelectAll(false);
+      }
     } else {
       setSelectCkb((prev) =>
         prev.filter((item) => item.id !== productItem._id)
       );
       setSelectAll(false);
       setCount(count - 1);
-    }
-
-    if (count === products.length - 1) {
-      setSelectAll(true);
-    } else {
-      setSelectAll(false);
     }
   };
 
@@ -119,9 +116,12 @@ const AdminHome = () => {
     const newListId = newList.map((item: any) => item._id);
 
     axios
-      .delete("http://localhost:2304/products", { data: { ids: newListId } })
+      .delete("/products", { data: { ids: newListId } })
       .then((res) => {
         dispatch(listProducts(res.data));
+        setSelectCkb([])
+        setCount(0);
+        toast.success("Delete products success");
       })
       .catch((err) => {
         console.log("err", err);

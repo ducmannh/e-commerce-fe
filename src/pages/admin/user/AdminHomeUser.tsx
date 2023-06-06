@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import AdminHeader from "../AdminHeader";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers } from "../../../redux/storeSlice";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ const AdminHomeUser = () => {
 
   const getUsers = () => {
     axios
-      .get("http://localhost:2304/users")
+      .get("/users")
       .then((res) => dispatch(listUsers(res.data)));
   };
 
@@ -54,7 +54,7 @@ const AdminHomeUser = () => {
   };
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:2304/users/${id}`).then((res) => {
+    axios.delete(`/users/${id}`).then((res) => {
       dispatch(listUsers(res.data));
       toast.success(
         "Deleted success, You will be redirected to the login page after 5s"

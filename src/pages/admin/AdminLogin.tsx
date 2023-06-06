@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
+import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers, nameUser } from "../../redux/storeSlice";
 import { toast, Toaster } from "react-hot-toast";
@@ -56,7 +56,7 @@ const AdminLogin = () => {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:2304/users")
+      .get("/users")
       .then((res) => dispatch(listUsers(res.data)));
   }, []);
 

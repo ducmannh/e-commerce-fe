@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { listUsers } from "../../../redux/storeSlice";
 import { Toaster, toast } from "react-hot-toast";
 
@@ -53,7 +53,7 @@ const AdminUpdateUser = () => {
   const { id } = useParams();
 
   const onSubmit = async (data: FormData) => {
-    axios.put(`http://localhost:2304/users/${id}`, data).then((res) => {
+    axios.put(`/users/${id}`, data).then((res) => {
       dispatch(listUsers(res.data));
       toast.success("Updated success, You will be redirected to the login page after 5s");
       setTimeout(() => {
@@ -63,7 +63,7 @@ const AdminUpdateUser = () => {
   };
 
   React.useEffect(() => {
-    axios.get(`http://localhost:2304/users/${id}`).then((res) => {
+    axios.get(`/users/${id}`).then((res) => {
       const { name, password, confirmPassword, email, phone } = res.data;
       setValue("name", name);
       setValue("password", password);

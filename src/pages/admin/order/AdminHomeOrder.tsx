@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import AdminHeader from "../AdminHeader";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { listOrders } from "../../../redux/storeSlice";
 import { format } from "date-fns";
@@ -24,7 +24,7 @@ const AdminHomeOrder = () => {
   const isAnySelected = selectCkb.length > 0;
 
   const getOrders = () => {
-    axios.get("http://localhost:2304/orders").then((res) => {
+    axios.get("/orders").then((res) => {
       dispatch(listOrders(res.data));
     });
   };
@@ -54,7 +54,7 @@ const AdminHomeOrder = () => {
   };
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:2304/orders/${id}`).then((res) => {
+    axios.delete(`/orders/${id}`).then((res) => {
       dispatch(listOrders(res.data));
       setOpen(false);
       toast.success("Success deleted");
@@ -100,9 +100,12 @@ const AdminHomeOrder = () => {
     const newListId = newList.map((item: any) => item._id);
 
     axios
-      .delete("http://localhost:2304/orders", { data: { ids: newListId } })
+      .delete("/orders", { data: { ids: newListId } })
       .then((res) => {
         dispatch(listOrders(res.data));
+        setSelectCkb([])
+        setCount(0)
+        toast.success("Delete orders success")
       });
   };
 

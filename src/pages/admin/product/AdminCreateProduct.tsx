@@ -2,7 +2,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import Text from "../../../components/Text";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { useDispatch } from "react-redux";
 import { listProducts } from "../../../redux/storeSlice";
 import { toast, Toaster } from "react-hot-toast";
@@ -28,7 +28,7 @@ const AdminCreateProduct = () => {
         data.price &&
         data.createdAt
       ) {
-        const res = await axios.post("http://localhost:2304/products", data);
+        const res = await axios.post("/products", data);
         dispatch(listProducts(res.data));
         toast.success("Added products success");
         reset();

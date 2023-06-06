@@ -1,11 +1,11 @@
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import Button from "../../../components/Button";
 import Text from "../../../components/Text";
 import { useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { format } from "date-fns";
 import { listProducts } from "../../../redux/storeSlice";
 
@@ -24,15 +24,16 @@ const AdminUpdateProduct = () => {
   const { id } = useParams();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    axios.put(`http://localhost:2304/products/${id}`, data).then((res) => {
+    axios.put(`/products/${id}`, data).then((res) => {
       dispatch(listProducts(res.data));
+      toast.success("Updated success")
       navigate("/admin-products");
     });
   };
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:2304/products/${id}`)
+      .get(`/products/${id}`)
       .then((res) => {
         const { image, name, description, price, createdAt } = res.data;
         setValue("image", image);
