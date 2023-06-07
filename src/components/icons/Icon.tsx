@@ -1,3 +1,4 @@
+import ArrowDownIcon from "./ArrowDownIcon";
 import ArrowSmallRightIcon from "./ArrowSmallRightIcon";
 import CartIcon from "./CartIcon";
 import ExclamationTriangleIcon from "./ExclamationTriangleIcon";
@@ -6,7 +7,6 @@ import MinusIcon from "./MinusIcon";
 import PlusIcon from "./PlusIcon";
 import TrashIcon from "./TrashIcon";
 import XMarkIcon from "./XMarkIcon";
-import ArrowDownIcon from "./arrowDownIcon";
 
 type IconName =
   | "arrow-down-icon"
