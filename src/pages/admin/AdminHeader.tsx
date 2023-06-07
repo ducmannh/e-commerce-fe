@@ -124,7 +124,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
           </button>
           <div className="flex items-center justify-around">
             <img
-              src="src/assets/avatar.jpeg"
+              src="https://e-commerce-fe-one.vercel.app/src/assets/avatar.jpeg"
               alt="avatar"
               className="w-10 rounded-full ml-4"
             />
