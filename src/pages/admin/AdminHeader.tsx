@@ -8,6 +8,7 @@ import { BiLogOut } from "react-icons/bi";
 import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers } from "../../redux/storeSlice";
+import avatar from "../../assets/avatar.jpeg"
 
 interface AdminHeaderProps {
   handleSearch: (searchInput: string) => void;
@@ -124,7 +125,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
           </button>
           <div className="flex items-center justify-around">
             <img
-              src="https://e-commerce-fe-one.vercel.app/src/assets/avatar.jpeg"
+              src={avatar}
               alt="avatar"
               className="w-10 rounded-full ml-4"
             />
