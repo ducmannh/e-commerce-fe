@@ -63,7 +63,7 @@ const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "/success",
+        return_url: "https://e-commerce-fe-one.vercel.app/success",
       },
     });
 
