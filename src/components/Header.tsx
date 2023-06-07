@@ -19,7 +19,7 @@ const Header = () => {
           <Text variant="caption-one">Shop</Text>
         </Link>
         <Link to={"/admin-login"}>
-          <Text variant="caption-one">About</Text>
+          <Text variant="caption-one">Admin</Text>
         </Link>
         <Link to={"/cart"} className="relative">
           <Icon name="cart-icon" />
