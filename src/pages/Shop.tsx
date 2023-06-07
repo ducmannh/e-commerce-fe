@@ -84,7 +84,7 @@ const Shop = () => {
                   className="mt-7 w-full"
                   onClick={() => handleAddItemToCart(productItem)}
                 >
-                  Add to bag
+                  Add to cart
                 </Button>
               </div>
             );

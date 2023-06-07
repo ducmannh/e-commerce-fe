@@ -1,7 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../components/icons/Logo";
+import "flowbite";
+import { BiLogOut } from "react-icons/bi";
+import axios from "../../api/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listUsers } from "../../redux/storeSlice";
 
 interface AdminHeaderProps {
   handleSearch: (searchInput: string) => void;
@@ -9,7 +15,11 @@ interface AdminHeaderProps {
 
 const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
   const [searchInput, setSearchInput] = React.useState("");
+  const [nameUser, setNameUser] = React.useState<string | null>("");
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const name = useSelector((value: any) => value.store.dataName);
   const isActiveProduct = location.pathname === "/admin-products";
   const isActiveOrder = location.pathname === "/admin-orders";
   const isActiveUser = location.pathname === "/admin-users";
@@ -17,6 +27,19 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
   const handleSearchInput = () => {
     handleSearch(searchInput);
   };
+
+  React.useEffect(() => {
+    axios.get("/users").then((res) => {
+      dispatch(listUsers(res.data));
+    });
+  }, []);
+
+  React.useEffect(() => {
+    if (name) {
+      localStorage.setItem("name", name);
+    }
+    setNameUser(localStorage.getItem("name"));
+  }, [name]);
 
   return (
     <nav className="bg-zinc-200 border-gray-200">
@@ -99,7 +122,22 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
               ></path>
             </svg>
           </button>
+          <div className="flex items-center justify-around">
+            <img
+              src="src/assets/avatar.jpeg"
+              alt="avatar"
+              className="w-10 rounded-full ml-4"
+            />
+            <p className="ml-2 mr-2 sm:mr-5 md:mr-8">{nameUser}</p>
+            <div
+              className="text-3xl cursor-pointer"
+              onClick={() => navigate("/admin-login")}
+            >
+              <BiLogOut />
+            </div>
+          </div>
         </div>
+
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-search"
@@ -125,38 +163,44 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
               id="search-navbar"
               className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search..."
+              onChange={(e: any) => setSearchInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchInput();
+                }
+              }}
             />
           </div>
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:flex-row md:space-x-8 md:mt-0">
+          <ul className="flex flex-col p-4 mt-4 font-medium md:flex-row md:space-x-8 md:mt-0 md:flex md:justify-end">
             <li>
-              <Link
-                to={"/admin-products"}
-                className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
+              <a
+                href={"/admin-products"}
+                className={`block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 hover:text-blue-700 ${
                   isActiveProduct ? "text-indigo-600" : ""
                 }`}
               >
                 Products
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                to={"/admin-orders"}
-                className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
+              <a
+                href={"/admin-orders"}
+                className={`block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 hover:text-blue-700 ${
                   isActiveOrder ? "text-indigo-600" : ""
                 }`}
               >
                 Orders
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                to={"/admin-users"}
-                className={`block py-2 pl-3 pr-4 text-gray-900 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 ${
+              <a
+                href={"/admin-users"}
+                className={`block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 hover:text-blue-700 ${
                   isActiveUser ? "text-indigo-600" : ""
                 }`}
               >
                 Users
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

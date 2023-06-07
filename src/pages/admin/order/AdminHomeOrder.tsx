@@ -8,19 +8,16 @@ import { listOrders } from "../../../redux/storeSlice";
 import { format } from "date-fns";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast, Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 
 const AdminHomeOrder = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<string>("");
   const [selectAll, setSelectAll] = React.useState<boolean>(false);
   const [selectCkb, setSelectCkb] = React.useState<any[]>([]);
   const [count, setCount] = React.useState<number>(0);
   const order = useSelector((value: any) => value.store.order);
-  const name = localStorage.getItem("name");
   const isAnySelected = selectCkb.length > 0;
 
   const getOrders = () => {
@@ -99,14 +96,12 @@ const AdminHomeOrder = () => {
     );
     const newListId = newList.map((item: any) => item._id);
 
-    axios
-      .delete("/orders", { data: { ids: newListId } })
-      .then((res) => {
-        dispatch(listOrders(res.data));
-        setSelectCkb([])
-        setCount(0)
-        toast.success("Delete orders success")
-      });
+    axios.delete("/orders", { data: { ids: newListId } }).then((res) => {
+      dispatch(listOrders(res.data));
+      setSelectCkb([]);
+      setCount(0);
+      toast.success("Delete orders success");
+    });
   };
 
   React.useEffect(() => {
@@ -115,31 +110,20 @@ const AdminHomeOrder = () => {
 
   return (
     <div>
-      <AdminHeader handleSearch={handleSearch} />
-      <Toaster />
+        <AdminHeader handleSearch={handleSearch} />
+        <Toaster />
 
-      <div className="text-2xl mx-10 flex flex-col items-center my-6 md:flex-row">
-        <div className="flex-grow">
-          <div className="flex my-5">
-            Welcome back, {name}
-            <div
-              className="underline decoration-blue-800 text-blue-800 ml-5 cursor-pointer"
-              onClick={() => navigate("/admin-login")}
+        <div className="text-2xl mx-10 flex flex-col items-center my-6 md:flex-row">
+          {isAnySelected && (
+            <Button
+              className="flex items-center"
+              size="small"
+              onClick={handleDeleteSelected}
             >
-              Logout
-            </div>
-          </div>
+              <p>Delete Orders</p>
+            </Button>
+          )}
         </div>
-        {isAnySelected && (
-          <Button
-            className="flex items-center"
-            size="small"
-            onClick={handleDeleteSelected}
-          >
-            <p>Delete Orders</p>
-          </Button>
-        )}
-      </div>
 
       {open && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
@@ -217,7 +201,9 @@ const AdminHomeOrder = () => {
               <th className="border border-zinc-950 px-6 py-3">Email</th>
               <th className="border border-zinc-950 px-6 py-3">Address</th>
               <th className="border border-zinc-950 px-6 py-3">City</th>
-              <th className="border border-zinc-950 px-6 py-3">Products, Quantity</th>
+              <th className="border border-zinc-950 px-6 py-3">
+                Products, Quantity
+              </th>
               <th className="border border-zinc-950 px-6 py-3">Total ($)</th>
               <th className="border border-zinc-950 px-6 py-3">Status</th>
               <th className="border border-zinc-950 px-6 py-3">Order At</th>
@@ -276,7 +262,10 @@ const AdminHomeOrder = () => {
                   >
                     {orderItems.map((item: any, index: number) => {
                       return (
-                        <div key={index} className="flex justify-end lg:justify-between">
+                        <div
+                          key={index}
+                          className="flex justify-end lg:justify-between"
+                        >
                           <div className="sm:mr-1">{item.name}</div>
                           <div>
                             <span className="text-rose-700 font-bold text-md sm:mr-1">

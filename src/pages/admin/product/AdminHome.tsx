@@ -7,7 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../../../api/axios";
-import { listProducts, listUsers } from "../../../redux/storeSlice";
+import { listProducts } from "../../../redux/storeSlice";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
@@ -21,23 +21,8 @@ const AdminHome = () => {
   const [selectAll, setSelectAll] = React.useState<boolean>(false);
   const [selectCkb, setSelectCkb] = React.useState<any[]>([]);
   const [count, setCount] = React.useState<number>(0);
-  const [nameUser, setNameUser] = React.useState<string | null>("");
   const products = useSelector((value: any) => value.store.products);
-  const name = useSelector((value: any) => value.store.dataName);
   const isAnySelected = selectCkb.length > 0;
-
-  React.useEffect(() => {
-    if (name) {
-      localStorage.setItem("name", name);
-    }
-    setNameUser(localStorage.getItem("name"));
-  }, [name]);
-
-  React.useEffect(() => {
-    axios.get("/users").then((res) => {
-      dispatch(listUsers(res.data));
-    });
-  }, []);
 
   const getProduct = () => {
     axios.get("/products").then((res) => dispatch(listProducts(res.data)));
@@ -119,7 +104,7 @@ const AdminHome = () => {
       .delete("/products", { data: { ids: newListId } })
       .then((res) => {
         dispatch(listProducts(res.data));
-        setSelectCkb([])
+        setSelectCkb([]);
         setCount(0);
         toast.success("Delete products success");
       })
@@ -130,19 +115,11 @@ const AdminHome = () => {
 
   return (
     <div>
-      <AdminHeader handleSearch={handleSearch} />
-      <Toaster />
-
-      <div className="text-2xl mx-10 flex flex-col md:flex-row md:justify-between items-center my-6">
-        <div className="flex">
-          Welcome back, {nameUser}
-          <div
-            className="underline decoration-blue-800 text-blue-800 ml-5 cursor-pointer"
-            onClick={() => navigate("/admin-login")}
-          >
-            Logout
-          </div>
-        </div>
+      <header className="fixed top-0 left-0 w-full">
+        <AdminHeader handleSearch={handleSearch} />
+        <Toaster />
+      </header>
+      <div className="text-2xl mx-10 flex flex-col md:flex-row md:justify-between items-center my-6 mt-24">
         <div className="flex flex-col mt-3 lg:flex-row lg:justify-between">
           <Button
             className="flex items-center lg:mr-5"

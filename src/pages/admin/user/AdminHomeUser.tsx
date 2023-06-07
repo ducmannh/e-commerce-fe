@@ -20,9 +20,7 @@ const AdminHomeUser = () => {
   const [id, setId] = React.useState<string>("");
 
   const getUsers = () => {
-    axios
-      .get("/users")
-      .then((res) => dispatch(listUsers(res.data)));
+    axios.get("/users").then((res) => dispatch(listUsers(res.data)));
   };
 
   const handleSearch = (searchInput: string) => {
@@ -135,17 +133,7 @@ const AdminHomeUser = () => {
         </div>
       )}
 
-      <div className="text-2xl mx-10 flex items-center my-6">
-        <p className="mr-4">Welcome back, {nameUser}</p>
-        <div
-          className="underline decoration-blue-800 text-blue-800 mr-5 cursor-pointer"
-          onClick={() => navigate("/admin-login")}
-        >
-          Logout
-        </div>
-      </div>
-
-      <div className="mx-10 mb-10">
+      <div className="mx-10 mb-10 mt-10">
         <table className="w-full text-md text-center text-gray-500 table-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-300">
             <tr className="hidden md:table-row">
@@ -160,18 +148,42 @@ const AdminHomeUser = () => {
           <tbody>
             {user.map((userItem: any) => {
               return (
-                <tr key={userItem._id} className="bg-white border-b even:bg-slate-200">
-                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Name">{userItem.name}</td>
-                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Email">{userItem.email}</td>
-                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Phone">{userItem.phone}</td>
-                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Created At">
+                <tr
+                  key={userItem._id}
+                  className="bg-white border-b even:bg-slate-200"
+                >
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center"
+                    data-title="Name"
+                  >
+                    {userItem.name}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center"
+                    data-title="Email"
+                  >
+                    {userItem.email}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center"
+                    data-title="Phone"
+                  >
+                    {userItem.phone}
+                  </td>
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center"
+                    data-title="Created At"
+                  >
                     {format(
                       new Date(userItem.createdAt),
                       "dd/MM/yyyy HH:mm:ss"
                     )}
                   </td>
 
-                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Edit">
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center"
+                    data-title="Edit"
+                  >
                     <div
                       onClick={() =>
                         handleEditProduct(userItem._id, userItem.name)
@@ -181,7 +193,10 @@ const AdminHomeUser = () => {
                       <MdModeEditOutline />
                     </div>
                   </td>
-                  <td className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center" data-title="Delete">
+                  <td
+                    className="border border-zinc-950 px-6 py-4 block text-right before:content-[attr(data-title)] before:float-left before:font-bold md:before:hidden md:table-cell md:text-center"
+                    data-title="Delete"
+                  >
                     <div
                       onClick={() =>
                         handleOpenDialog(userItem._id, userItem.name)
