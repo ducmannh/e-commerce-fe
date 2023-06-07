@@ -174,7 +174,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
           <ul className="flex flex-col p-4 mt-4 font-medium md:flex-row md:space-x-8 md:mt-0 md:flex md:justify-end">
             <li>
               <a
-                href={"/admin-products"}
+                href="/admin-products"
                 className={`block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 hover:text-blue-700 ${
                   isActiveProduct ? "text-indigo-600" : ""
                 }`}
@@ -184,7 +184,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
             </li>
             <li>
               <a
-                href={"/admin-orders"}
+                href="/admin-orders"
                 className={`block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 hover:text-blue-700 ${
                   isActiveOrder ? "text-indigo-600" : ""
                 }`}
@@ -194,7 +194,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ handleSearch }) => {
             </li>
             <li>
               <a
-                href={"/admin-users"}
+                href="/admin-users"
                 className={`block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 hover:text-blue-700 ${
                   isActiveUser ? "text-indigo-600" : ""
                 }`}
